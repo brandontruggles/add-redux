@@ -27,7 +27,7 @@ If a `yarn.lock` file is present in the project directory, `add-redux` will use 
 Why is this Needed?
 ---
 
-When creating a Redux-based project, there are currently many popular cli tools: [create-react-app-with-redux](https://github.com/tstringer/create-react-app-with-redux), [create-react-redux-native-app](https://github.com/kMeillet/create-react-redux-native-app), [generator-create-redux-app](https://github.com/jonidelv/generator-create-redux-app), [create-redux-app](https://github.com/ReactPoland/create-redux-app), etc.
+When creating a Redux-based project, there are currently many popular cli tools: [redux-wooo](https://github.com/kocisov/wooo), [create-react-app-with-redux](https://github.com/tstringer/create-react-app-with-redux), [create-react-redux-native-app](https://github.com/kMeillet/create-react-redux-native-app), [generator-create-redux-app](https://github.com/jonidelv/generator-create-redux-app), [create-redux-app](https://github.com/ReactPoland/create-redux-app), etc.
 
 These tools are useful, but there are three main problems with them:
 
