@@ -1,4 +1,4 @@
-add-redux
+add-redux [![Build Status](https://travis-ci.org/brandonrninefive/add-redux.svg?branch=master)](https://travis-ci.org/brandonrninefive/add-redux) 
 ===
 
 Quickly add Redux boilerplate files and directories to your vanilla JavaScript, React, or React Native app.
