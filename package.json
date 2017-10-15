@@ -1,0 +1,20 @@
+{
+  "name": "add-redux",
+  "version": "0.1.0",
+  "description": "Quickly add Redux boilerplate files and directories to your vanilla JavaScript, React, or React Native App.",
+  "main": "index.js",
+  "repository": "https://github.com/brandonrninefive/add-redux.git",
+  "author": "Brandon Ruggles <brandonrninefive@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "bin": {
+    "add-redux": "./index.js"
+  },
+  "dependencies": {
+    "commander": "^2.11.0",
+    "rimraf": "^2.6.2"
+  },
+  "scripts": {
+    "test": "node test.js"
+  }
+}
