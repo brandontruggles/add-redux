@@ -1,4 +1,4 @@
-add-redux [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/brandonrninefive/add-redux/blob/master/LICENSE.md) [![npm](https://img.shields.io/npm/v/npm.svg)](https://www.npmjs.com/package/add-redux) [![Build Status](https://travis-ci.org/brandonrninefive/add-redux.svg?branch=master)](https://travis-ci.org/brandonrninefive/add-redux) 
+add-redux [![license](https://img.shields.io/github/license/brandonrninefive/add-redux.svg)](https://github.com/brandonrninefive/add-redux/blob/master/LICENSE.md) [![npm version](https://img.shields.io/npm/v/add-redux.svg)](https://www.npmjs.com/package/add-redux) [![Build Status](https://travis-ci.org/brandonrninefive/add-redux.svg?branch=master)](https://travis-ci.org/brandonrninefive/add-redux) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/brandonrninefive/add-redux/issues)  
 ===
 
 Quickly add Redux boilerplate files and directories to your vanilla JavaScript, React, or React Native app.
