@@ -16,5 +16,6 @@
   },
   "scripts": {
     "test": "npm link && node test.js"
-  }
+  },
+  "keywords": ["add", "redux", "react", "native", "cli", "thunk", "logger", "promise"]
 }
