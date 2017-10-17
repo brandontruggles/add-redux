@@ -62,7 +62,7 @@ Any actions should be created in the `actions/` directory.
 
 - [redux-logger](https://github.com/evgenyrodionov/redux-logger)
 - [redux-thunk](https://github.com/gaearon/redux-thunk) 
-- [redux-promise](https://github.com/acdlite/redux-promise)
+- [redux-promise-middleware](https://github.com/pburtchaell/redux-promise-middleware)
 
 If your project does not require any of these, see the option flags below. 
 
@@ -75,4 +75,4 @@ When using `add-redux`, you can specify the following flags to control which pac
 - `-r, --react` - Adds [react-redux](https://github.com/reactjs/react-redux) to the project dependencies. This feature currently leaves the rest of the React setup to the user, but it does prompt the user on how to do so.
 - `-l, --no-logger` - Skips adding [redux-logger](https://github.com/evgenyrodionov/redux-logger) to the project dependencies and boilerplate code.
 - `-t, --no-thunk` - Skips adding [redux-thunk](https://github.com/gaearon/redux-thunk) to the project dependencies and boilerplate code.
-- `-p, --no-promise` - Skips adding [redux-promise](https://github.com/acdlite/redux-promise) to the project dependencies and boilerplate code.
+- `-p, --no-promise` - Skips adding [redux-promise-middleware](https://github.com/pburtchaell/redux-promise-middleware) to the project dependencies and boilerplate code.

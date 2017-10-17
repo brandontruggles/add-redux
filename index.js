@@ -9,7 +9,7 @@ function editStoreFile(storeFileContents) {
 	var middlewareStrings = [];
 	if(program.logger) {
 		newContents = newContents.replace("//<loggerImportLine>", "import logger from 'redux-logger';");	
-		middlewareStrings.push("logger()");
+		middlewareStrings.push("logger");
 	}
 	else {	
 		newContents = newContents.replace("//<loggerImportLine>", "");	
@@ -22,7 +22,7 @@ function editStoreFile(storeFileContents) {
 		newContents = newContents.replace("//<thunkImportLine>", "");
 	}
 	if(program.promise) {
-		newContents = newContents.replace("//<promiseImportLine>", "import promise from 'redux-promise';");
+		newContents = newContents.replace("//<promiseImportLine>", "import promise from 'redux-promise-middleware';");
 		middlewareStrings.push("promise()");
 	}
 	else {
@@ -98,7 +98,7 @@ program
 .option("-r, --react", "Used for React projects. Also installs and saves 'react-redux' to the project dependencies.")
 .option("-l, --no-logger", "Skips installing 'redux-logger' middleware.")
 .option("-t, --no-thunk", "Skips installing 'redux-thunk' middleware.")
-.option("-p, --no-promise", "Skips installing 'redux-promise' middleware.")
+.option("-p, --no-promise", "Skips installing 'redux-promise-middleware' middleware.")
 .action(function(path) {
 	try {
 		var fullPath = process.cwd() + "/" + path.replace("/", "");
@@ -158,7 +158,7 @@ program
 						addDependency(fullPath, "redux-thunk", yarnExists);
 					}	
 					if(program.promise) {
-						addDependency(fullPath, "redux-promise", yarnExists);
+						addDependency(fullPath, "redux-promise-middleware", yarnExists);
 					}
 					if(program.react) {
 						addDependency(fullPath, "react-redux", yarnExists);
