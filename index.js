@@ -93,7 +93,7 @@ function checkOrMakeDir(path) {
 }
 
 program
-.version("0.1.0")
+.version("0.1.3")
 .arguments("<path>")
 .option("-r, --react", "Used for React projects. Also installs and saves 'react-redux' to the project dependencies.")
 .option("-l, --no-logger", "Skips installing 'redux-logger' middleware.")
@@ -162,12 +162,21 @@ program
 					}
 					if(program.react) {
 						addDependency(fullPath, "react-redux", yarnExists);
-						console.log("Remember to perform the following steps to integrate Redux with your React app:");
+						console.log("Remember to perform the following steps to successfully integrate Redux with your React app (assuming you are using ES6 syntax):");
 						console.log("");
-						console.log("In your main component file:");
+						console.log("In your main file:");
 						console.log("1. import { Provider } from 'react-redux';");
 						console.log("2. import store from './store';");
-						console.log("3. In the component's render function, wrap the outermost component with <Provider store={store}></Provider>");
+						console.log("3. Wrap the outermost component with <Provider store={store}></Provider>");
+						console.log("");
+						console.log("In your individual components:");
+						console.log("1. import { connect } from 'react-redux';");
+						console.log("2. import { <actionNames> } from 'actions';");
+						console.log("3. Create const mapStateToProps = (state) => { return {propName: state.reducerName.variableName} }");
+						console.log("4. Create const mapDispatchToProps = (dispatch) => { return {propName: () => { dispatch(actionFunc()) }} }");
+						console.log("5. Insert the mapped props and actions into your component's render() function.");
+						console.log("6. Wrap the component class with the connect(mapStateToProps, mapDispatchToProps)(Component) function and export the resulting component.");
+						
 					}
 				}
 				else {
