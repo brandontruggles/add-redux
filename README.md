@@ -10,7 +10,7 @@ Getting Started
 
 You can install add-redux with the command:
 
-`npm -i -g add-redux`
+`npm i -g add-redux`
 
 Alternatively, you can use yarn like so:
 
