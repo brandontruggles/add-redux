@@ -13,5 +13,5 @@ var output = "";
 output = child_process.execSync("npm init --yes", {cwd: __dirname + "/example_project"}).toString("utf8");
 console.log(output);
 console.log("Running 'add-redux example_project/'...");
-output = child_process.execSync("add-redux -r example_project/").toString("utf8");
+output = child_process.execSync("add-redux -re example_project/").toString("utf8");
 console.log(output);
