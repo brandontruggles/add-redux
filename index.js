@@ -100,7 +100,7 @@ program
 .option("-l, --no-logger", "Skips installing 'redux-logger' middleware.")
 .option("-t, --no-thunk", "Skips installing 'redux-thunk' middleware.")
 .option("-p, --no-promise", "Skips installing 'redux-promise-middleware' middleware.")
-.option("-e, --examples", "Adds an 'add_redux_examples/' directory to the project root. This directory includes examples for integrating redux with different types of projects.")
+.option("-e, --examples", "Adds an 'redux_examples/' directory to the project root. This directory includes examples for integrating redux with different types of projects.")
 .action(function(path) {
 	try {
 		var fullPath = process.cwd() + "/" + path.replace("/", "");
@@ -146,12 +146,12 @@ program
 					}
 
 					if(program.examples) {
-						var examplesDirMade = checkOrMakeDir(fullPath + "/add_redux_examples");
+						var examplesDirMade = checkOrMakeDir(fullPath + "/redux_examples");
 						if(examplesDirMade) {
-							var reactDirMade = checkOrMakeDir(fullPath + "/add_redux_examples/react_example");
+							var reactDirMade = checkOrMakeDir(fullPath + "/redux_examples/react_example");
 							if(reactDirMade) {
-								addFileFromTemplate(fullPath + "/add_redux_examples/react_example/App.js", __dirname + "/templates/react_example_template.js");
-								addFileFromTemplate(fullPath + "/add_redux_examples/react_example/TestComponent.js", __dirname + "/templates/react_example_component_template.js");
+								addFileFromTemplate(fullPath + "/redux_examples/react_example/App.js", __dirname + "/templates/react_example_template.js");
+								addFileFromTemplate(fullPath + "/redux_examples/react_example/TestComponent.js", __dirname + "/templates/react_example_component_template.js");
 							}
 						}
 					}

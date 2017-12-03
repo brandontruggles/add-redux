@@ -51,7 +51,7 @@ Running `add-redux` on a project directory will add the following files and dire
 ├── actions/
 │   ├── index.js
 ├── store.js
-├── add_redux_examples/ (optional with the '--examples' flag)
+├── redux_examples/ (optional with the '--examples' flag)
 │   ├── <project examples> ...
 ```
 
@@ -79,4 +79,11 @@ When using `add-redux`, you can specify the following flags to control which pac
 - `-l, --no-logger` - Skips adding [redux-logger](https://github.com/evgenyrodionov/redux-logger) to the project dependencies and boilerplate code.
 - `-t, --no-thunk` - Skips adding [redux-thunk](https://github.com/gaearon/redux-thunk) to the project dependencies and boilerplate code.
 - `-p, --no-promise` - Skips adding [redux-promise-middleware](https://github.com/pburtchaell/redux-promise-middleware) to the project dependencies and boilerplate code.
-- `-e, --examples` - Adds an `add_redux_examples/` directory to the project root. This directory includes examples for integrating redux with different types of projects.
+- `-e, --examples` - Adds an `redux_examples/` directory to the project root. This directory includes examples for integrating redux with different types of projects.
+
+Examples
+---
+
+The following example directories are generated within the `redux_examples/` directory when using the `--examples` flag.
+
+- `react_example/` - An example project for integrating Redux with React. Includes a sample `App.js` file and a sample component which is used in `App.js`.
