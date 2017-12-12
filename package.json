@@ -1,6 +1,6 @@
 {
   "name": "add-redux",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Quickly add Redux boilerplate files and directories to your vanilla JavaScript, React, or React Native App.",
   "main": "index.js",
   "repository": "https://github.com/brandonrninefive/add-redux.git",
