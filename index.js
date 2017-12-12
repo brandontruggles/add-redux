@@ -8,13 +8,6 @@ var chalk = require("chalk");
 function editStoreFile(storeFileContents) {
 	var newContents = storeFileContents;
 	var middlewareStrings = [];
-	if(program.logger) {
-		newContents = newContents.replace("//<loggerImportLine>", "import logger from 'redux-logger';");	
-		middlewareStrings.push("logger");
-	}
-	else {	
-		newContents = newContents.replace("//<loggerImportLine>", "");	
-	}
 	if(program.thunk) {
 		newContents = newContents.replace("//<thunkImportLine>", "import thunk from 'redux-thunk';");
 		middlewareStrings.push("thunk");
@@ -28,6 +21,13 @@ function editStoreFile(storeFileContents) {
 	}
 	else {
 		newContents = newContents.replace("//<promiseImportLine>", "");
+	}
+	if(program.logger) {
+		newContents = newContents.replace("//<loggerImportLine>", "import logger from 'redux-logger';");	
+		middlewareStrings.push("logger");
+	}
+	else {	
+		newContents = newContents.replace("//<loggerImportLine>", "");	
 	}
 	newContents = newContents.replace("//<middlewareLine>", "const middleware = applyMiddleware(" + middlewareStrings.toString().replace(/,/g, ", ") + ");");
 	return newContents;
