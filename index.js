@@ -33,6 +33,15 @@ function editStoreFile(storeFileContents) {
 	return newContents;
 }
 
+function editActionsFile(actionsFileContents) {
+	var newContents = actionsFileContents;
+	if(!program.thunk) {
+		var asyncIndex = newContents.indexOf("//This is an example async action using redux-thunk.");
+		newContents = newContents.substring(0, asyncIndex);
+	}
+	return newContents;
+}
+
 function addDependency(path, packageName, yarnExists) {
 
 	console.log(chalk.cyan("Adding dependency '" + packageName + "'..."));
@@ -94,7 +103,7 @@ function checkOrMakeDir(path) {
 }
 
 program
-.version("0.3.0")
+.version("0.4.0")
 .arguments("<path>")
 .option("-r, --react", "Installs and saves 'react-redux' to the project dependencies. Also prompts the user with basic steps to integrate Redux with React.")
 .option("-l, --no-logger", "Skips installing 'redux-logger' middleware.")
@@ -137,7 +146,7 @@ program
 					//Add boilerplate code to the redux directories					
 					
 					if(actionsDirMade) {
-						addFileFromTemplate(fullPath + "/actions/index.js", __dirname + "/templates/actions_template.js");
+						addFileFromTemplate(fullPath + "/actions/index.js", __dirname + "/templates/actions_template.js", editActionsFile);
 					}
 
 					if(reducersDirMade) {
