@@ -103,7 +103,7 @@ function checkOrMakeDir(path) {
 }
 
 program
-.version("0.4.0")
+.version("0.4.1")
 .arguments("<path>")
 .option("-r, --react", "Installs and saves 'react-redux' to the project dependencies. Also prompts the user with basic steps to integrate Redux with React.")
 .option("-l, --no-logger", "Skips installing 'redux-logger' middleware.")
