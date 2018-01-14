@@ -45,14 +45,16 @@ What's Included?
 Running `add-redux` on a project directory will add the following files and directories into the project directory:
 
 ```
-├── reducers/
+├── reducers/ (only without the '--ducks' flag)
 │   ├── index.js 
 │   ├── sampleReducers.js
-├── actions/
+├── actions/ (only without the '--ducks' flag)
 │   ├── index.js
 ├── store.js
 ├── redux_examples/ (optional with the '--examples' flag)
 │   ├── <project examples> ...
+├── ducks/ (optional with the '--ducks' flag)
+│   ├── sampleDuck.js
 ```
 
 From there, you can simply use `import store from 'store';` in your project to begin using Redux.
@@ -80,6 +82,7 @@ When using `add-redux`, you can specify the following flags to control which pac
 - `-t, --no-thunk` - Skips adding [redux-thunk](https://github.com/gaearon/redux-thunk) to the project dependencies and boilerplate code.
 - `-p, --no-promise` - Skips adding [redux-promise-middleware](https://github.com/pburtchaell/redux-promise-middleware) to the project dependencies and boilerplate code.
 - `-e, --examples` - Adds a `redux_examples/` directory to the project root. This directory includes examples for integrating redux with different types of projects.
+- `-d, --ducks` - Adds a `ducks/` directory to the project root. This directory contains an example modular redux file (also known as a [duck](https://github.com/erikras/ducks-modular-redux)). Using this option will prevent the `actions/` and `reducers/` directories from being generated, since they are not needed by the [duck specification](https://github.com/erikras/ducks-modular-redux).
 
 Examples
 ---

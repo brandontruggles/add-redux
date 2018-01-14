@@ -103,13 +103,14 @@ function checkOrMakeDir(path) {
 }
 
 program
-.version("0.4.1")
+.version("0.5.0")
 .arguments("<path>")
 .option("-r, --react", "Installs and saves 'react-redux' to the project dependencies. Also prompts the user with basic steps to integrate Redux with React.")
 .option("-l, --no-logger", "Skips installing 'redux-logger' middleware.")
 .option("-t, --no-thunk", "Skips installing 'redux-thunk' middleware.")
 .option("-p, --no-promise", "Skips installing 'redux-promise-middleware' middleware.")
 .option("-e, --examples", "Adds an 'redux_examples/' directory to the project root. This directory includes examples for integrating redux with different types of projects.")
+.option("-d, --ducks", "Adds a 'ducks/' directory to the project root. This directory contains an example modular redux file (also known as a duck).")
 .action(function(path) {
 	try {
 		var fullPath = process.cwd() + "/" + path.replace("/", "");
