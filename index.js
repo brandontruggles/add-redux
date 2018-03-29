@@ -29,6 +29,12 @@ function editStoreFile(storeFileContents) {
 	else {	
 		newContents = newContents.replace("//<loggerImportLine>", "");	
 	}
+  if(program.ducks) { 
+		newContents = newContents.replace("//<reducersImportLine>", "import reducers from './ducks';");	
+  }
+  else {
+    newContents = newContents.replace("//<reducersImportLine>", "import reducers from './reducers';");
+  }
 	newContents = newContents.replace("//<middlewareLine>", "const middleware = applyMiddleware(" + middlewareStrings.toString().replace(/,/g, ", ") + ");");
 	return newContents;
 }
@@ -39,6 +45,17 @@ function editActionsFile(actionsFileContents) {
 		var asyncIndex = newContents.indexOf("//This is an example async action using redux-thunk.");
 		newContents = newContents.substring(0, asyncIndex);
 	}
+	return newContents;
+}
+
+function editComponentFile(componentFileContents) {
+	var newContents = componentFileContents;
+	if(program.ducks) {
+		newContents = newContents.replace("//<actionsImportLine>", "import { increment } from './ducks/sampleDuck';");	
+	}
+  else { 
+		newContents = newContents.replace("//<actionsImportLine>", "import { increment } from './actions';");	
+  }
 	return newContents;
 }
 
@@ -141,8 +158,8 @@ program
 
 					//Create redux directories
 					
-					var actionsDirMade = checkOrMakeDir(fullPath + "/actions");
-					var reducersDirMade = checkOrMakeDir(fullPath + "/reducers");
+					var actionsDirMade = !program.ducks ? checkOrMakeDir(fullPath + "/actions") : false;
+					var reducersDirMade = !program.ducks ? checkOrMakeDir(fullPath + "/reducers") : false;
 
 					//Add boilerplate code to the redux directories					
 					
@@ -161,10 +178,18 @@ program
 							var reactDirMade = checkOrMakeDir(fullPath + "/redux_examples/react_example");
 							if(reactDirMade) {
 								addFileFromTemplate(fullPath + "/redux_examples/react_example/App.js", __dirname + "/templates/react_example_template.js");
-								addFileFromTemplate(fullPath + "/redux_examples/react_example/TestComponent.js", __dirname + "/templates/react_example_component_template.js");
+								addFileFromTemplate(fullPath + "/redux_examples/react_example/TestComponent.js", __dirname + "/templates/react_example_component_template.js", editComponentFile);
 							}
 						}
 					}
+
+          if(program.ducks) {
+            var ducksDirMade = checkOrMakeDir(fullPath + "/ducks");
+            if(ducksDirMade) {
+              addFileFromTemplate(fullPath + "/ducks/index.js", __dirname + "/templates/ducks_index_template.js");
+              addFileFromTemplate(fullPath + "/ducks/sampleDuck.js", __dirname + "/templates/ducks_template.js");
+            }
+          }
 
 					//Add store boilerplate code in the main project directory
 

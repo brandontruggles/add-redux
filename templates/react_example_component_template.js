@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { increment } from './actions';
+//<actionsImportLine>
 
 class TestComponent extends Component {
   render() {
