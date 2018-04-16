@@ -120,14 +120,15 @@ function checkOrMakeDir(path) {
 }
 
 program
-.version("0.5.0")
-.arguments("<path>")
+.version("0.6.0")
+.arguments("<root_project_directory>")
 .option("-r, --react", "Installs and saves 'react-redux' to the project dependencies. Also prompts the user with basic steps to integrate Redux with React.")
 .option("-l, --no-logger", "Skips installing 'redux-logger' middleware.")
 .option("-t, --no-thunk", "Skips installing 'redux-thunk' middleware.")
 .option("-p, --no-promise", "Skips installing 'redux-promise-middleware' middleware.")
 .option("-e, --examples", "Adds an 'redux_examples/' directory to the project root. This directory includes examples for integrating redux with different types of projects.")
 .option("-d, --ducks", "Adds a 'ducks/' directory to the project root. This directory contains an example modular redux file (also known as a duck).")
+.option("-s, --src [directory]", "Specifies the source directory for the project. This is where the boilerplate code will reside. Defaults to the root project directory specified by the <path> argument.")
 .action(function(path) {
 	try {
 		var fullPath = process.cwd() + "/" + path.replace("/", "");
@@ -156,76 +157,90 @@ program
 						console.log(chalk.cyan("No yarn.lock detected, using npm to install dependencies."));
 					}
 
-					//Create redux directories
-					
-					var actionsDirMade = !program.ducks ? checkOrMakeDir(fullPath + "/actions") : false;
-					var reducersDirMade = !program.ducks ? checkOrMakeDir(fullPath + "/reducers") : false;
+          fullPath = program.src ? (fullPath + "/" + program.src) : fullPath;
 
-					//Add boilerplate code to the redux directories					
-					
-					if(actionsDirMade) {
-						addFileFromTemplate(fullPath + "/actions/index.js", __dirname + "/templates/actions_template.js", editActionsFile);
-					}
+          try {
 
-					if(reducersDirMade) {
-						addFileFromTemplate(fullPath + "/reducers/sampleReducers.js", __dirname + "/templates/sample_reducers_template.js");
-						addFileFromTemplate(fullPath + "/reducers/index.js", __dirname + "/templates/reducers_template.js");
-					}
+				    var pathStat = fs.statSync(fullPath);
 
-					if(program.examples) {
-						var examplesDirMade = checkOrMakeDir(fullPath + "/redux_examples");
-						if(examplesDirMade) {
-							var reactDirMade = checkOrMakeDir(fullPath + "/redux_examples/react_example");
-							if(reactDirMade) {
-								addFileFromTemplate(fullPath + "/redux_examples/react_example/App.js", __dirname + "/templates/react_example_template.js");
-								addFileFromTemplate(fullPath + "/redux_examples/react_example/TestComponent.js", __dirname + "/templates/react_example_component_template.js", editComponentFile);
-							}
-						}
-					}
+            if(pathStat.isDirectory()) {
+              //Create redux directories
+              
+              var actionsDirMade = !program.ducks ? checkOrMakeDir(fullPath + "/actions") : false;
+              var reducersDirMade = !program.ducks ? checkOrMakeDir(fullPath + "/reducers") : false;
 
-          if(program.ducks) {
-            var ducksDirMade = checkOrMakeDir(fullPath + "/ducks");
-            if(ducksDirMade) {
-              addFileFromTemplate(fullPath + "/ducks/index.js", __dirname + "/templates/ducks_index_template.js");
-              addFileFromTemplate(fullPath + "/ducks/sampleDuck.js", __dirname + "/templates/ducks_template.js");
+              //Add boilerplate code to the redux directories					
+              
+              if(actionsDirMade) {
+                addFileFromTemplate(fullPath + "/actions/index.js", __dirname + "/templates/actions_template.js", editActionsFile);
+              }
+
+              if(reducersDirMade) {
+                addFileFromTemplate(fullPath + "/reducers/sampleReducers.js", __dirname + "/templates/sample_reducers_template.js");
+                addFileFromTemplate(fullPath + "/reducers/index.js", __dirname + "/templates/reducers_template.js");
+              }
+
+              if(program.examples) {
+                var examplesDirMade = checkOrMakeDir(fullPath + "/redux_examples");
+                if(examplesDirMade) {
+                  var reactDirMade = checkOrMakeDir(fullPath + "/redux_examples/react_example");
+                  if(reactDirMade) {
+                    addFileFromTemplate(fullPath + "/redux_examples/react_example/App.js", __dirname + "/templates/react_example_template.js");
+                    addFileFromTemplate(fullPath + "/redux_examples/react_example/TestComponent.js", __dirname + "/templates/react_example_component_template.js", editComponentFile);
+                  }
+                }
+              }
+
+              if(program.ducks) {
+                var ducksDirMade = checkOrMakeDir(fullPath + "/ducks");
+                if(ducksDirMade) {
+                  addFileFromTemplate(fullPath + "/ducks/index.js", __dirname + "/templates/ducks_index_template.js");
+                  addFileFromTemplate(fullPath + "/ducks/sampleDuck.js", __dirname + "/templates/ducks_template.js");
+                }
+              }
+
+              //Add store boilerplate code in the main project directory
+
+              addFileFromTemplate(fullPath + "/store.js", __dirname + "/templates/store_template.js", editStoreFile);
+              
+              //Install dependencies
+
+              addDependency(fullPath, "redux", yarnExists);
+
+              if(program.logger) {
+                addDependency(fullPath, "redux-logger", yarnExists);
+              }
+              if(program.thunk) {
+                addDependency(fullPath, "redux-thunk", yarnExists);
+              }	
+              if(program.promise) {
+                addDependency(fullPath, "redux-promise-middleware", yarnExists);
+              }
+              if(program.react) {
+                addDependency(fullPath, "react-redux", yarnExists);
+                console.log(chalk.green("Remember to perform the following steps to successfully integrate Redux with your React app (assuming you are using ES6 syntax):"));
+                console.log("");
+                console.log(chalk.green("In your main file:"));
+                console.log(chalk.green("1. import { Provider } from 'react-redux';"));
+                console.log(chalk.green("2. import store from './store';"));
+                console.log(chalk.green("3. Wrap the outermost component with <Provider store={store}></Provider>"));
+                console.log("");
+                console.log(chalk.green("In your individual components:"));
+                console.log(chalk.green("1. import { connect } from 'react-redux';"));
+                console.log(chalk.green("2. import { <actionNames> } from 'actions';"));
+                console.log(chalk.green("3. Create const mapStateToProps = (state) => { return {propName: state.reducerName.variableName} }"));
+                console.log(chalk.green("4. Create const mapDispatchToProps = (dispatch) => { return {propName: () => { dispatch(actionFunc()) }} }"));
+                console.log(chalk.green("5. Insert the mapped props and actions into your component's render() function."));
+                console.log(chalk.green("6. Wrap the component class with the connect(mapStateToProps, mapDispatchToProps)(Component) function and export the resulting component."));
+              }
+            }
+            else {
+					    console.error(chalk.red("ERR: '" + fullPath + "' is not a valid subdirectory in the project!"));
             }
           }
-
-					//Add store boilerplate code in the main project directory
-
-					addFileFromTemplate(fullPath + "/store.js", __dirname + "/templates/store_template.js", editStoreFile);
-					
-					//Install dependencies
-
-					addDependency(fullPath, "redux", yarnExists);
-
-					if(program.logger) {
-						addDependency(fullPath, "redux-logger", yarnExists);
-					}
-					if(program.thunk) {
-						addDependency(fullPath, "redux-thunk", yarnExists);
-					}	
-					if(program.promise) {
-						addDependency(fullPath, "redux-promise-middleware", yarnExists);
-					}
-					if(program.react) {
-						addDependency(fullPath, "react-redux", yarnExists);
-						console.log(chalk.green("Remember to perform the following steps to successfully integrate Redux with your React app (assuming you are using ES6 syntax):"));
-						console.log("");
-						console.log(chalk.green("In your main file:"));
-						console.log(chalk.green("1. import { Provider } from 'react-redux';"));
-						console.log(chalk.green("2. import store from './store';"));
-						console.log(chalk.green("3. Wrap the outermost component with <Provider store={store}></Provider>"));
-						console.log("");
-						console.log(chalk.green("In your individual components:"));
-						console.log(chalk.green("1. import { connect } from 'react-redux';"));
-						console.log(chalk.green("2. import { <actionNames> } from 'actions';"));
-						console.log(chalk.green("3. Create const mapStateToProps = (state) => { return {propName: state.reducerName.variableName} }"));
-						console.log(chalk.green("4. Create const mapDispatchToProps = (dispatch) => { return {propName: () => { dispatch(actionFunc()) }} }"));
-						console.log(chalk.green("5. Insert the mapped props and actions into your component's render() function."));
-						console.log(chalk.green("6. Wrap the component class with the connect(mapStateToProps, mapDispatchToProps)(Component) function and export the resulting component."));
-						
-					}
+          catch(err) {
+					    console.error(chalk.red("ERR: '" + fullPath + "' is not a valid subdirectory in the project!"));
+          }
 				}
 				else {
 					console.error(chalk.red("ERR: '" + fullPath + "' is not a valid npm project! No package.json file found!"));
