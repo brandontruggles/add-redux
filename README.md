@@ -83,7 +83,7 @@ When using `add-redux`, you can specify the following flags to control which pac
 - `-p, --no-promise` - Skips adding [redux-promise-middleware](https://github.com/pburtchaell/redux-promise-middleware) to the project dependencies and boilerplate code.
 - `-e, --examples` - Adds a `redux_examples/` directory to the project root. This directory includes examples for integrating redux with different types of projects.
 - `-d, --ducks` - Adds a `ducks/` directory to the project root. This directory contains an example modular redux file (also known as a [duck](https://github.com/erikras/ducks-modular-redux)). Using this option will prevent the `actions/` and `reducers/` directories from being generated, since they are not needed by the [duck specification](https://github.com/erikras/ducks-modular-redux).
-- `-s, --src <directory>` - Specifies the source directory for the project. This is where the boilerplate code will reside.        Defaults to the root project directory.
+- `-s, --src <directory>` - Specifies the source directory for the project. This is where the boilerplate code will reside.        Defaults to the root project directory. The directory argument should be a relative path name from the root project directory.
 
 Examples
 ---
