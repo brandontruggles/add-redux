@@ -128,7 +128,7 @@ program
 .option("-p, --no-promise", "Skips installing 'redux-promise-middleware' middleware.")
 .option("-e, --examples", "Adds an 'redux_examples/' directory to the project root. This directory includes examples for integrating redux with different types of projects.")
 .option("-d, --ducks", "Adds a 'ducks/' directory to the project root. This directory contains an example modular redux file (also known as a duck).")
-.option("-s, --src [directory]", "Specifies the source directory for the project. This is where the boilerplate code will reside. Defaults to the root project directory specified by the <path> argument.")
+.option("-s, --src <directory>", "Specifies the source directory for the project. This is where the boilerplate code will reside. Defaults to the root project directory specified by the <path> argument.")
 .action(function(path) {
 	try {
 		var fullPath = process.cwd() + "/" + path.replace("/", "");
